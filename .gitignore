@@ -3,3 +3,5 @@
 /entities.xml
 /.idea
 /attachments
+.DS_Store
+entities.xml.org

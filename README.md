@@ -11,9 +11,10 @@ Convert a confluence space export in XML format to github markdown pages
 
 ## Example of export / import commands
 ```bash
-# git clone git@github.com:sjones4/confluence-to-github.git
+# git clone git@github.com:pzzd/confluence-to-github.git
 # cd confluence-to-github
 # unzip ~/Downloads/Confluence-export.zip
+# ./convert-html-entities.sh 
 # ./generate.sh
 # rm out/wiki/Services-Team-Space.md  # optionally delete space home page
 # cp -pvr out/wiki/* ~/Work/eucalyptus.wiki/
