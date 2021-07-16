@@ -279,7 +279,24 @@ _italic_
       </ac:image>
       TODO: support width/height? {:height="36px" width="36px"}
   -->
-  <xsl:template match="ac:image">![<xsl:value-of select="@ac:alt"/>](images/<xsl:value-of select="/page/space"/>/<xsl:value-of select="ri:attachment/@ri:filename"/>)</xsl:template>
+  <xsl:template match="ac:image">![<xsl:value-of select="@ac:alt"/>](images/<xsl:value-of select="/page/space"/>/<xsl:value-of select="ri:attachment/@ri:filename"/>)
+<!-- TODO: insert HTML with a value that comes from XSL value 
+<img src="https://github.com/uchicago-its-web-services/wiki/blob/main/images/storage/Screen Shot 2020-05-29 at 10.54.03 AM.png" width="300">
+-->
+  <img>
+      <xsl:attribute name="src">
+          https://github.com/uchicago-its-web-services/wiki/blob/main/images/storage/<xsl:value-of select="@ac:alt"/>
+      </xsl:attribute>
+
+      <xsl:attribute name="alt">
+          <xsl:value-of select="@ac:alt"/>
+      </xsl:attribute>
+
+      <xsl:attribute name="width">
+        300
+      </xsl:attribute>
+  </img>
+</xsl:template>
 
   <!--
     <ac:structured-macro ac:name="code" ac:schema-version="1" ac:macro-id="d4ad3989-bce6-4b8c-b174-fcc0e9bf9a42">
