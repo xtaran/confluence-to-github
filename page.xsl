@@ -8,6 +8,8 @@ Transform an xml page to github markdown
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   >
 
+
+
 <!-- Markdown output
 # header1
 ## header 2
@@ -15,7 +17,7 @@ Transform an xml page to github markdown
 
 [text here](http://url.goes/here)
 
-![alt text here](http://image.url/here)
+<img src="https://github.com/uchicago-its-web-services/wiki/blob/main/images/storage/Screen Shot 2020-05-29 at 10.54.03 AM.png" height="300" alt="">
 
 **bold**
 _italic_
@@ -279,23 +281,12 @@ _italic_
       </ac:image>
       TODO: support width/height? {:height="36px" width="36px"}
   -->
-  <xsl:template match="ac:image">![<xsl:value-of select="@ac:alt"/>](images/<xsl:value-of select="/page/space"/>/<xsl:value-of select="ri:attachment/@ri:filename"/>)
-<!-- TODO: insert HTML with a value that comes from XSL value 
-<img src="https://github.com/uchicago-its-web-services/wiki/blob/main/images/storage/Screen Shot 2020-05-29 at 10.54.03 AM.png" width="300">
--->
-  <img>
-      <xsl:attribute name="src">
-          https://github.com/uchicago-its-web-services/wiki/blob/main/images/storage/<xsl:value-of select="@ac:alt"/>
-      </xsl:attribute>
-
-      <xsl:attribute name="alt">
-          <xsl:value-of select="@ac:alt"/>
-      </xsl:attribute>
-
-      <xsl:attribute name="width">
-        300
-      </xsl:attribute>
-  </img>
+  <xsl:template match="ac:image">
+    <xsl:text disable-output-escaping="yes">&lt;img </xsl:text> 
+      src='https://github.com/uchicago-its-web-services/wiki/blob/main/images/<xsl:value-of select="/page/space"/>/<xsl:value-of select="ri:attachment/@ri:filename"/>'
+      alt='<xsl:value-of select="@ac:alt"/>'
+      height='<xsl:value-of select="@ac:height"/>'
+   <xsl:text disable-output-escaping="yes"> /&gt; </xsl:text> 
 </xsl:template>
 
   <!--
