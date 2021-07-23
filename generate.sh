@@ -12,10 +12,19 @@ mkdir -pv out/wiki/images
 
 echo "Generating page xmls and image mapping"
 xsltproc entities.xsl entities.xml
+echo ""
+
+echo "The Confluence Children Display macro cannot be converted for these pages:"
+grep -rln 'ac:name="children"' out/page-xml
+echo ""
+
+echo "The Confluence Info macro cannot be converted for these pages:"
+grep -rln 'ac:name="info"' out/page-xml
+echo ""
 
 echo "Copying images from attachments"
 xsltproc image-mappings.xsl out/image-mappings.xml | bash
-
+echo ""
 
 echo "Convert page xmls to github markdown"
 for PAGE_PATH in out/page-xml/*.xml; do 
