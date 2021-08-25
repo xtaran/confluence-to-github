@@ -297,19 +297,28 @@ _italic_
       <ac:plain-text-body><![CDATA[com.eucalyptus.empyrean.registration.map.cluster=clusterservice]]></ac:plain-text-body>
     </ac:structured-macro>
   -->
-  <xsl:template match="ac:structured-macro[@ac:name = 'code']">
+<xsl:template match="ac:structured-macro[@ac:name = 'code']">
 ```<xsl:value-of select="ac:parameter[@ac:name = 'language']"/><xsl:text>
 </xsl:text><xsl:value-of select="ac:plain-text-body"/>
 ```
 </xsl:template>
 
-  <xsl:template match="pre">
+<xsl:template match="pre">
 ```
 <xsl:copy>
       <xsl:apply-templates select="node()"/>
 </xsl:copy>
 ```
 </xsl:template>
+
+<xsl:template match="code">
+```
+<xsl:copy>
+      <xsl:apply-templates select="node()"/>
+</xsl:copy>
+```
+</xsl:template>
+
 
   <!--
     <ac:structured-macro ac:name="jira" ac:schema-version="1" ac:macro-id="eb159d99-7736-4a43-829e-3fe7580a453f">

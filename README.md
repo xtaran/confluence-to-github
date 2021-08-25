@@ -18,8 +18,8 @@ You can run this script multiple times on your exported files: it deletes .md fi
 # git clone git@github.com:pzzd/confluence-to-github.git
 # cd confluence-to-github
 # unzip ~/Downloads/Confluence-export.zip
-# convert-html-entities.sh 
-# generate.sh
+# sh convert-html-entities.sh 
+# sh generate.sh
 # mv out/wiki/ITS-EAS-Web-Services.md out/wiki/Home.md
 ```
 
