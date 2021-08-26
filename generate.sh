@@ -23,6 +23,10 @@ echo "The Confluence code tag will be converted for these pages. Check in the wi
 grep -rln '<code>' out/page-xml
 echo ""
 
+echo "Some images are lost in both Confluence and the GH wiki. Compare image URLs between source and target for these pages."
+grep -rln '<ac:image' out/page-xml
+echo ""
+
 echo "The Confluence Children Display macro cannot be converted for these pages."
 grep -rln 'ac:name="children"' out/page-xml
 echo ""
