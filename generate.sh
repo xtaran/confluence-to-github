@@ -14,15 +14,19 @@ echo "Generating page xmls and image mapping"
 xsltproc entities.xsl entities.xml
 echo ""
 
-echo "The Confluence code tag cannot be converted for these pages:"
+echo "The Confluence table tag will be converted for these pages. Check them in the wiki. Line breaks will break a table in the wiki."
+grep -rln '<table>' out/page-xml
+echo ""
+
+echo "The Confluence code tag will be converted for these pages. Check in the wiki."
 grep -rln '<code>' out/page-xml
 echo ""
 
-echo "The Confluence Children Display macro cannot be converted for these pages:"
+echo "The Confluence Children Display macro cannot be converted for these pages."
 grep -rln 'ac:name="children"' out/page-xml
 echo ""
 
-echo "The Confluence Info macro cannot be converted for these pages:"
+echo "The Confluence Info macro cannot be converted for these pages."
 grep -rln 'ac:name="info"' out/page-xml
 echo ""
 

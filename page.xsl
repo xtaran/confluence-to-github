@@ -312,11 +312,7 @@ _italic_
 </xsl:template>
 
 <xsl:template match="code">
-```
-<xsl:copy>
-      <xsl:apply-templates select="node()"/>
-</xsl:copy>
-```
+`<xsl:copy><xsl:apply-templates select="node()"/></xsl:copy>`
 </xsl:template>
 
 
