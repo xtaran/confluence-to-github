@@ -8,7 +8,8 @@ rm -rf out
 
 echo "Creating output directories"
 mkdir -pv out/page-xml
-mkdir -pv out/wiki/images
+mkdir -pv out/wiki
+mkdir -pv out/images
 
 echo "Generating page xmls and image mapping"
 xsltproc entities.xsl entities.xml

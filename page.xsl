@@ -251,6 +251,7 @@ _italic_
     </ac:link>
 
     // [[Link Text|WikiLink]]             : for pages
+    but we will get rid of link text because the pipe breaks tables.
     <ac:link>
       <ri:page ri:space-key="QA" ri:content-title="Public IP Address Reservation" ri:version-at-save="51"/>
     </ac:link>
@@ -262,9 +263,8 @@ _italic_
   <xsl:template match="ac:link[boolean(ri:url)]">[<xsl:copy>
       <xsl:apply-templates select="ac:link-body|ac:plain-text-link-body"/>
     </xsl:copy>](<xsl:value-of select="ri:url/@ri:value"/>)</xsl:template>
-  <xsl:template match="ac:link[boolean(ri:page) and (boolean(ac:link-body) or boolean(ac:plain-text-link-body))]">[[<xsl:copy>
-      <xsl:apply-templates select="ac:link-body|ac:plain-text-link-body"/>
-    </xsl:copy>|<xsl:value-of select="translate(ri:page/@ri:content-title,$title-was,$title-now)"/>]]</xsl:template>
+  <xsl:template match="ac:link[boolean(ri:page) and (boolean(ac:link-body) or boolean(ac:plain-text-link-body))]">[[<xsl:value-of select="translate(ri:page/@ri:content-title,$title-was,$title-now)"/>]]</xsl:template>
+  
   <xsl:template match="ac:link[boolean(ri:page) and not (boolean(ac:link-body) or boolean(ac:plain-text-link-body))]">[[<xsl:value-of select="ri:page/@ri:content-title"/>|<xsl:value-of select="translate(ri:page/@ri:content-title,$title-was,$title-now)"/>]]</xsl:template>
 
   <xsl:template match="a[boolean(@href)]">[<xsl:copy>
