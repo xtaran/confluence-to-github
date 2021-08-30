@@ -50,11 +50,12 @@ Transform a Confluence XML format space export to multiple xml pages.
 
   <xsl:template match="object[@class='Page']">
     <!-- 
-      bad title characters \ / : * ? " < > | & ( ) m-dash
+      bad title characters \ / : * ? " < > | & ( )
     -->
-    <xsl:variable name="was" select="' \/:*?\|&quot;&lt;&gt;&amp;\(\)&mdash;'"/>
+    <xsl:variable name="was" select="' \/:*?\|&quot;&lt;&gt;&amp;\(\)'"/>
     <xsl:variable name="now" select="'-----------'"/>
-    <xsl:message><<xsl:value-of select="$was"/> <<xsl:value-of select="$now"/></xsl:message>
+    <xsl:message>[<xsl:value-of select="property[@name='title']"/>] to [<xsl:value-of select="translate(property[@name='title'],$was,$now)"/>]
+    </xsl:message>
     <exsl:document href="{$output-path}/page-xml/{translate(property[@name='title'],$was,$now)}.xml" format="xml" standalone="no" indent="yes" doctype-system="../../page.dtd">
       <page
         xmlns:ac="http://www.atlassian.com/schema/confluence/4/ac/"
@@ -99,12 +100,9 @@ Transform a Confluence XML format space export to multiple xml pages.
   <xsl:template match="/">
     <!-- 
       export will include old versions of current pages and pages that 
-      have been deleted. 
-
-      select only pages with a current version (i.e. historicalVersions
-      element present)
+      have been deleted. we only want to select only pages with a content status of 'current'.
     -->
-    <xsl:apply-templates select="/hibernate-generic/object[@class='Page' and boolean(collection[@name='historicalVersions'])]"/>
+    <xsl:apply-templates select="/hibernate-generic/object[@class='Page' and boolean(property[@name='contentStatus'][text()='current'])]"/>
 
     <!-- 
       create a mapping document for attachments to wiki images
