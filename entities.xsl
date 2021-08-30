@@ -54,6 +54,7 @@ Transform a Confluence XML format space export to multiple xml pages.
     -->
     <xsl:variable name="was" select="' \/:*?\|&quot;&lt;&gt;&amp;\(\)&mdash;'"/>
     <xsl:variable name="now" select="'-----------'"/>
+    <xsl:message><<xsl:value-of select="$was"/> <<xsl:value-of select="$now"/></xsl:message>
     <exsl:document href="{$output-path}/page-xml/{translate(property[@name='title'],$was,$now)}.xml" format="xml" standalone="no" indent="yes" doctype-system="../../page.dtd">
       <page
         xmlns:ac="http://www.atlassian.com/schema/confluence/4/ac/"
