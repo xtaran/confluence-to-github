@@ -40,7 +40,7 @@ _italic_
   <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 
-  <xsl:variable name="title-was" select="' \/:*?\|&quot;&lt;&gt;'"/>
+  <xsl:variable name="title-was" select="' \/:*?\|&quot;&lt;&gt;&amp;\(\)'"/>
   <xsl:variable name="title-now" select="'-----------'"/>
 
 
