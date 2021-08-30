@@ -61,6 +61,10 @@ Transform a Confluence XML format space export to multiple xml pages.
         xmlns:ac="http://www.atlassian.com/schema/confluence/4/ac/"
         xmlns:ri="http://www.atlassian.com/schema/confluence/4/ri/"
       >
+        <confluence-page-history-version>
+          <xsl:value-of select="property[@name='version']"/>
+        </confluence-page-history-version>
+
         <space>
           <xsl:value-of select="$space"/>
         </space>
@@ -95,27 +99,6 @@ Transform a Confluence XML format space export to multiple xml pages.
     <xsl:if test="/hibernate-generic/object[@class='Attachment' and id = $attachment-id]">
       <image attachment="attachments/{../../../id}/{$attachment-id}/{/hibernate-generic/object[@class='Attachment' and id = $attachment-id]/property[@name = 'version']}" path="images/{$space}/{/hibernate-generic/object[@class='Attachment' and id = $attachment-id]/property[@name = 'title']}"/>
     </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="/">
-    <!-- 
-      export will include old versions of current pages and pages that 
-      have been deleted. we only want to select only pages with a content status of 'current'.
-    -->
-    <xsl:apply-templates select="/hibernate-generic/object[@class='Page' and boolean(property[@name='contentStatus'][text()='current'])]"/>
-
-    <!-- 
-      create a mapping document for attachments to wiki images
-
-      attachments/$page-id/$attachment-id/$version - - > images/$space/$filename
-      attachments/100434301/104595714/1            - - > images/services/intellij_idea_annotation_processors.gif
-    -->
-    <exsl:document href="{$output-path}image-mappings.xml" format="xml" standalone="yes" indent="yes">
-      <images>
-<!--        <xsl:apply-templates select="/hibernate-generic/object[@class='Page' and boolean(collection[@name='historicalVersions'])]/collection[@name = 'attachments']/element[@class = 'Attachment']/id[@name = 'id']" mode="image"/>-->
-        <xsl:apply-templates select="/hibernate-generic/object[@class='Page']/collection[@name = 'attachments']/element[@class = 'Attachment']/id[@name = 'id']" mode="image"/>
-      </images>
-    </exsl:document>
   </xsl:template>
 
 </xsl:stylesheet>

@@ -11,8 +11,12 @@ mkdir -pv out/page-xml
 mkdir -pv out/wiki
 mkdir -pv out/images
 
-echo "Generating page xmls and image mapping"
-xsltproc entities.xsl entities.xml
+echo "Generating first-version page xmls and image mapping"
+xsltproc entities-version-1.xsl entities.xml
+echo ""
+
+echo "Generating latest-version page xmls and image mapping"
+xsltproc entities-version-latest.xsl entities.xml
 echo ""
 
 echo "The Confluence table tag will be converted for these pages. Check them in the wiki. Line breaks will break a table in the wiki."
@@ -36,7 +40,7 @@ grep -rln 'ac:name="info"' out/page-xml
 echo ""
 
 echo "Copying images from attachments"
-xsltproc image-mappings.xsl out/image-mappings.xml | bash
+# xsltproc image-mappings.xsl out/image-mappings.xml | bash
 echo ""
 
 echo "Convert page xmls to github markdown"
