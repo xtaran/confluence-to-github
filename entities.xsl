@@ -50,9 +50,9 @@ Transform a Confluence XML format space export to multiple xml pages.
 
   <xsl:template match="object[@class='Page']">
     <!-- 
-      bad title characters \ / : * ? " < > | & ( )
+      bad title characters \ / : * ? " < > | & ( ) m-dash
     -->
-    <xsl:variable name="was" select="' \/:*?\|&quot;&lt;&gt;&amp;\(\)'"/>
+    <xsl:variable name="was" select="' \/:*?\|&quot;&lt;&gt;&amp;\(\)&mdash;'"/>
     <xsl:variable name="now" select="'-----------'"/>
     <exsl:document href="{$output-path}/page-xml/{translate(property[@name='title'],$was,$now)}.xml" format="xml" standalone="no" indent="yes" doctype-system="../../page.dtd">
       <page
