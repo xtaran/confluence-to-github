@@ -39,6 +39,10 @@ echo "The Confluence Info macro cannot be converted for these pages."
 grep -rln 'ac:name="info"' out/page-xml
 echo ""
 
+echo "Links to wiki.uchicago.edu should be changed manually in these pages."
+grep -lnr "wiki.uchicago.edu" out/page-xml
+echo ""
+
 echo "Copying images from attachments"
 xsltproc image-mappings.xsl out/image-mappings.xml | bash
 echo ""
