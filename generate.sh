@@ -53,6 +53,10 @@ for PAGE_PATH in out/page-xml/*.xml; do
    PAGE_MD=${PAGE_XML%%.xml}.md
    xsltproc page.xsl "${PAGE_PATH}" > "out/wiki/${PAGE_MD}"
 done
-
 echo "Content generated to out/wiki"
+
+mv out/wiki/ITS-EAS-Web-Services.md out/wiki/Home.md
+echo "Created Home.md"
+
+echo "DONE."
 

@@ -20,6 +20,5 @@ You can run this script multiple times on your exported files: it deletes .md fi
 # unzip ~/Downloads/Confluence-export.zip
 # sh convert-html-entities.sh 
 # sh generate.sh
-# mv out/wiki/ITS-EAS-Web-Services.md out/wiki/Home.md
 ```
 

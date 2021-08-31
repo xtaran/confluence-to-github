@@ -40,7 +40,9 @@ _italic_
   <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 
-  <xsl:variable name="title-was" select="' \/:*?\|&quot;&lt;&gt;&amp;\(\)'"/>
+  <xsl:variable name="singleQuote">'</xsl:variable>
+  <xsl:variable name="doubleQuote">"</xsl:variable>
+  <xsl:variable name="title-was" select="concat($doubleQuote, ' \/:*?\|&quot;&lt;&gt;&amp;\(\)!,', $singleQuote, $doubleQuote)"/>
   <xsl:variable name="title-now" select="'-----------'"/>
 
 

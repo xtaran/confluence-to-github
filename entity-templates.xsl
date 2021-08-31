@@ -48,9 +48,12 @@ Transform a Confluence XML format space export to multiple xml pages.
 
   <xsl:template match="object[@class='Page']">
     <!-- 
-      bad title characters \ / : * ? " < > | & ( )
+      bad title characters \ / : * ? " < > | & ( ) ! , '
     -->
-    <xsl:variable name="was" select="' \/:*?\|&quot;&lt;&gt;&amp;\(\)'"/>
+
+    <xsl:variable name="singleQuote">'</xsl:variable>
+    <xsl:variable name="doubleQuote">"</xsl:variable>
+    <xsl:variable name="was" select="concat($doubleQuote, ' \/:*?\|&quot;&lt;&gt;&amp;\(\)!,', $singleQuote, $doubleQuote)"/>
     <xsl:variable name="now" select="'-----------'"/>
     <xsl:message>[<xsl:value-of select="property[@name='title']"/>] to [<xsl:value-of select="translate(property[@name='title'],$was,$now)"/>]
     </xsl:message>
