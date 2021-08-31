@@ -282,11 +282,15 @@ _italic_
       TODO: support width/height? {:height="36px" width="36px"}
   -->
   <xsl:template match="ac:image">
-    <xsl:text disable-output-escaping="yes">&lt;img </xsl:text> 
-      src='https://github.com/uchicago-its-web-services/wiki/blob/main/images/<xsl:value-of select="ri:attachment/@ri:filename"/>'
-      alt='<xsl:value-of select="@ac:alt"/>'
-      height='<xsl:value-of select="@ac:height"/>'
-   <xsl:text disable-output-escaping="yes"> /&gt; </xsl:text> 
+    
+      <xsl:text disable-output-escaping="yes">&lt;img </xsl:text> 
+        <xsl:if test="ri:attachment">src='https://github.com/uchicago-its-web-services/wiki/blob/main/images/<xsl:value-of select="ri:attachment/@ri:filename"/>'</xsl:if>
+        <xsl:if test="ri:url">src='<xsl:value-of select="ri:url/@ri:value"/>'</xsl:if>
+        alt='<xsl:value-of select="@ac:alt"/>'
+        height='<xsl:value-of select="@ac:height"/>'
+        width='<xsl:value-of select="@ac:width"/>'
+     <xsl:text disable-output-escaping="yes"> /&gt; </xsl:text> 
+
 </xsl:template>
 
   <!--
