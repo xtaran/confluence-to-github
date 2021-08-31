@@ -20,11 +20,11 @@ xsltproc entities-version-latest.xsl entities.xml
 echo ""
 
 echo "The Confluence table tag will be converted for these pages. Check them in the wiki. Line breaks will break a table in the wiki."
-grep -rln '<table>' out/page-xml
+grep -rln '<table' out/page-xml
 echo ""
 
 echo "The Confluence code tag will be converted for these pages. Check in the wiki."
-grep -rln '<code>' out/page-xml
+grep -rln '<code' out/page-xml
 echo ""
 
 echo "Some images are lost in both Confluence and the GH wiki. Compare image URLs between source and target for these pages."
