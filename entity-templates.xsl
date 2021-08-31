@@ -10,8 +10,6 @@ Transform a Confluence XML format space export to multiple xml pages.
   <xsl:output method="xml" standalone="yes" indent="yes"/>
 
   <xsl:param name="output-path" select="'out/'"/>
-  <xsl:param name="space" select="'storage'"/>
-  <xsl:param name="space-category" select="'storage-team'"/>
 
   <xsl:template match="@*|node()" priority="-1">
     <xsl:copy>
@@ -64,10 +62,6 @@ Transform a Confluence XML format space export to multiple xml pages.
         <confluence-page-history-version>
           <xsl:value-of select="property[@name='version']"/>
         </confluence-page-history-version>
-
-        <space>
-          <xsl:value-of select="$space"/>
-        </space>
         <title>
           <xsl:value-of select="property[@name='title']"/>
         </title>
@@ -82,12 +76,6 @@ Transform a Confluence XML format space export to multiple xml pages.
             <xsl:with-param name="by" select="']]>'"/>
           </xsl:call-template>
         </body>
-        <xsl:if test="$space-category">
-          <category>
-            <xsl:value-of select="$space-category"/>
-          </category>
-        </xsl:if>
-        <category>confluence</category>
       </page>
     </exsl:document>
   </xsl:template>
@@ -95,9 +83,8 @@ Transform a Confluence XML format space export to multiple xml pages.
   <xsl:template match="id" mode="image">
     <xsl:variable name="attachment-id" select="string(text())"/>
     <xsl:message>attachment-id=[<xsl:value-of select="$attachment-id"/>]</xsl:message>
-<!--    <xsl:if test="/hibernate-generic/object[@class='Attachment' and id = $attachment-id and '' = property[@name = 'originalVersionId']]">-->
     <xsl:if test="/hibernate-generic/object[@class='Attachment' and id = $attachment-id]">
-      <image attachment="attachments/{../../../id}/{$attachment-id}/{/hibernate-generic/object[@class='Attachment' and id = $attachment-id]/property[@name = 'version']}" path="images/{$space}/{/hibernate-generic/object[@class='Attachment' and id = $attachment-id]/property[@name = 'title']}"/>
+      <image attachment="attachments/{../../../id}/{$attachment-id}/{/hibernate-generic/object[@class='Attachment' and id = $attachment-id]/property[@name = 'version']}" path="{/hibernate-generic/object[@class='Attachment' and id = $attachment-id]/property[@name = 'title']}"/>
     </xsl:if>
   </xsl:template>
 

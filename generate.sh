@@ -40,7 +40,7 @@ grep -rln 'ac:name="info"' out/page-xml
 echo ""
 
 echo "Copying images from attachments"
-# xsltproc image-mappings.xsl out/image-mappings.xml | bash
+xsltproc image-mappings.xsl out/image-mappings.xml | bash
 echo ""
 
 echo "Convert page xmls to github markdown"

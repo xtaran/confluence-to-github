@@ -17,7 +17,7 @@ Transform an xml page to github markdown
 
 [text here](http://url.goes/here)
 
-<img src="https://github.com/uchicago-its-web-services/wiki/blob/main/images/storage/Screen Shot 2020-05-29 at 10.54.03 AM.png" height="300" alt="">
+<img src="https://github.com/uchicago-its-web-services/wiki/blob/main/images/Screen Shot 2020-05-29 at 10.54.03 AM.png" height="300" alt="">
 
 **bold**
 _italic_
@@ -283,7 +283,7 @@ _italic_
   -->
   <xsl:template match="ac:image">
     <xsl:text disable-output-escaping="yes">&lt;img </xsl:text> 
-      src='https://github.com/uchicago-its-web-services/wiki/blob/main/images/<xsl:value-of select="/page/space"/>/<xsl:value-of select="ri:attachment/@ri:filename"/>'
+      src='https://github.com/uchicago-its-web-services/wiki/blob/main/images/<xsl:value-of select="ri:attachment/@ri:filename"/>'
       alt='<xsl:value-of select="@ac:alt"/>'
       height='<xsl:value-of select="@ac:height"/>'
    <xsl:text disable-output-escaping="yes"> /&gt; </xsl:text> 
