@@ -8,6 +8,8 @@ Transform an xml page to github markdown
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   >
 
+
+
 <!-- Markdown output
 # header1
 ## header 2
@@ -15,7 +17,7 @@ Transform an xml page to github markdown
 
 [text here](http://url.goes/here)
 
-![alt text here](http://image.url/here)
+<img src="https://github.com/uchicago-its-web-services/wiki/blob/main/images/Screen Shot 2020-05-29 at 10.54.03 AM.png" height="300" alt="">
 
 **bold**
 _italic_
@@ -38,7 +40,9 @@ _italic_
   <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 
-  <xsl:variable name="title-was" select="' \/:*?\|&quot;&lt;&gt;'"/>
+  <xsl:variable name="singleQuote">'</xsl:variable>
+  <xsl:variable name="doubleQuote">"</xsl:variable>
+  <xsl:variable name="title-was" select="concat($doubleQuote, ' \/:*?\|&quot;&lt;&gt;&amp;\(\)!,', $singleQuote, $doubleQuote)"/>
   <xsl:variable name="title-now" select="'-----------'"/>
 
 
@@ -249,6 +253,7 @@ _italic_
     </ac:link>
 
     // [[Link Text|WikiLink]]             : for pages
+    but we will get rid of link text because the pipe breaks tables.
     <ac:link>
       <ri:page ri:space-key="QA" ri:content-title="Public IP Address Reservation" ri:version-at-save="51"/>
     </ac:link>
@@ -260,9 +265,8 @@ _italic_
   <xsl:template match="ac:link[boolean(ri:url)]">[<xsl:copy>
       <xsl:apply-templates select="ac:link-body|ac:plain-text-link-body"/>
     </xsl:copy>](<xsl:value-of select="ri:url/@ri:value"/>)</xsl:template>
-  <xsl:template match="ac:link[boolean(ri:page) and (boolean(ac:link-body) or boolean(ac:plain-text-link-body))]">[[<xsl:copy>
-      <xsl:apply-templates select="ac:link-body|ac:plain-text-link-body"/>
-    </xsl:copy>|<xsl:value-of select="translate(ri:page/@ri:content-title,$title-was,$title-now)"/>]]</xsl:template>
+  <xsl:template match="ac:link[boolean(ri:page) and (boolean(ac:link-body) or boolean(ac:plain-text-link-body))]">[[<xsl:value-of select="translate(ri:page/@ri:content-title,$title-was,$title-now)"/>]]</xsl:template>
+  
   <xsl:template match="ac:link[boolean(ri:page) and not (boolean(ac:link-body) or boolean(ac:plain-text-link-body))]">[[<xsl:value-of select="ri:page/@ri:content-title"/>|<xsl:value-of select="translate(ri:page/@ri:content-title,$title-was,$title-now)"/>]]</xsl:template>
 
   <xsl:template match="a[boolean(@href)]">[<xsl:copy>
@@ -279,7 +283,17 @@ _italic_
       </ac:image>
       TODO: support width/height? {:height="36px" width="36px"}
   -->
-  <xsl:template match="ac:image">![<xsl:value-of select="@ac:alt"/>](images/<xsl:value-of select="/page/space"/>/<xsl:value-of select="ri:attachment/@ri:filename"/>)</xsl:template>
+  <xsl:template match="ac:image">
+    
+      <xsl:text disable-output-escaping="yes">&lt;img </xsl:text> 
+        <xsl:if test="ri:attachment">src='https://github.com/uchicago-its-web-services/wiki/blob/main/images/<xsl:value-of select="ri:attachment/@ri:filename"/>'</xsl:if>
+        <xsl:if test="ri:url">src='<xsl:value-of select="ri:url/@ri:value"/>'</xsl:if>
+        alt='<xsl:value-of select="@ac:alt"/>'
+        height='<xsl:value-of select="@ac:height"/>'
+        width='<xsl:value-of select="@ac:width"/>'
+     <xsl:text disable-output-escaping="yes"> /&gt; </xsl:text> 
+
+</xsl:template>
 
   <!--
     <ac:structured-macro ac:name="code" ac:schema-version="1" ac:macro-id="d4ad3989-bce6-4b8c-b174-fcc0e9bf9a42">
@@ -289,19 +303,24 @@ _italic_
       <ac:plain-text-body><![CDATA[com.eucalyptus.empyrean.registration.map.cluster=clusterservice]]></ac:plain-text-body>
     </ac:structured-macro>
   -->
-  <xsl:template match="ac:structured-macro[@ac:name = 'code']">
+<xsl:template match="ac:structured-macro[@ac:name = 'code']">
 ```<xsl:value-of select="ac:parameter[@ac:name = 'language']"/><xsl:text>
 </xsl:text><xsl:value-of select="ac:plain-text-body"/>
 ```
 </xsl:template>
 
-  <xsl:template match="pre">
+<xsl:template match="pre">
 ```
 <xsl:copy>
       <xsl:apply-templates select="node()"/>
 </xsl:copy>
 ```
 </xsl:template>
+
+<xsl:template match="code">
+`<xsl:copy><xsl:apply-templates select="node()"/></xsl:copy>`
+</xsl:template>
+
 
   <!--
     <ac:structured-macro ac:name="jira" ac:schema-version="1" ac:macro-id="eb159d99-7736-4a43-829e-3fe7580a453f">

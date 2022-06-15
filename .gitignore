@@ -3,7 +3,10 @@
 *.#*
 \#*#
 
-attachments/
-entities.xml
-exportDescriptor.properties
-out/
+/out
+/exportDescriptor.properties
+/entities.xml
+/.idea
+/attachments
+.DS_Store
+entities.xml.org
