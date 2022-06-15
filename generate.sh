@@ -42,10 +42,6 @@ echo "The Confluence Info macro cannot be converted for these pages."
 grep -rln 'ac:name="info"' out/page-xml
 echo ""
 
-echo "Links to wiki.uchicago.edu should be changed manually in these pages."
-grep -lnr "wiki.uchicago.edu" out/page-xml
-echo ""
-
 echo "Copying images from attachments"
 xsltproc image-mappings.xsl out/image-mappings.xml | bash
 echo ""
@@ -57,9 +53,6 @@ for PAGE_PATH in out/page-xml/*.xml; do
    xsltproc --path . page.xsl "${PAGE_PATH}" > "out/wiki/${PAGE_MD}"
 done
 echo "Content generated to out/wiki"
-
-mv out/wiki/ITS-EAS-Web-Services.md out/wiki/Home.md
-echo "Created Home.md"
 
 echo "DONE."
 
