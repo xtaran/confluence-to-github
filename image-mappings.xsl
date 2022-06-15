@@ -11,7 +11,7 @@ Transform the image mapping xml to some bash commands
   <xsl:template match="/">
     <xsl:for-each select="images/image">
       mkdir -p out/images
-      cp '<xsl:value-of select="@attachment"/>' 'out/images/<xsl:value-of select="@path"/>'
+      cp "<xsl:value-of select="@attachment"/>" "out/images/<xsl:value-of select="@path"/>"
     </xsl:for-each>
   </xsl:template>
 
