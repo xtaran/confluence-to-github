@@ -3,7 +3,6 @@
 # Generate github markdown pages from confluence export
 ########################################################################
 
-
 set -e
 
 echo "Removing items from last run"
@@ -21,6 +20,8 @@ echo ""
 echo "Generating latest-version page xmls and image mapping"
 xsltproc entities-version-latest.xsl entities.xml
 echo ""
+
+set +e
 
 echo "The Confluence table tag will be converted for these pages. Check them in the wiki. Line breaks will break a table in the wiki."
 grep -rln '<table' out/page-xml
@@ -41,6 +42,8 @@ echo ""
 echo "The Confluence Info macro cannot be converted for these pages."
 grep -rln 'ac:name="info"' out/page-xml
 echo ""
+
+set -e
 
 echo "Copying images from attachments"
 xsltproc image-mappings.xsl out/image-mappings.xml | bash
